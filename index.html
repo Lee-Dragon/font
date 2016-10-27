@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>黑客帝国文字流</title>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+</body>
+<script>
+    var canvas=document.getElementById('canvas');
+    var ctx=canvas.getContext('2d');
+    var str='sdfjlrigjrhmbdfgkpdorjgd';
+    var fontsize=20;
+    var cw=canvas.width=document.documentElement.clientWidth;
+    var ch=canvas.height=document.documentElement.clientHeight;
+    var colnum=Math.ceil(cw/fontsize);
+    var drop=[];
+    for(var i=0;i<colnum;i++){
+        drop[i]=0;
+    }
+    function draw() {
+//        ctx.clear(0,0,cw,ch);
+        ctx.save();
+        ctx.beginPath();
+        ctx.fillStyle='rgba(0,0,0,0.05)';
+        ctx.fillRect(0,0,cw,ch);
+        ctx.fillStyle='rgba(0,255,255,'+Math.random()+')';
+        ctx.font=fontsize+'px arial';
+        for(var i=0;i<drop.length;i++){
+            if(Math.random()<0.5){
+                var text=str[Math.floor(Math.random()*str.length)];
+                console.log(text,i,drop[i]);
+                ctx.fillText(text,i*fontsize,drop[i]*fontsize);
+                drop[i]++;
+                if(Math.random()>0.9){
+                    drop[i]=0
+                }
+            }
+        }
+        ctx.closePath();
+        ctx.restore();
+    }
+//    draw()
+    setInterval(draw,20)
+</script>
+</html>
